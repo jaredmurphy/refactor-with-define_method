@@ -1,3 +1,5 @@
+require "role"
+
 class User
   attr_accessor :id, :name, :role
 
@@ -7,8 +9,10 @@ class User
     @role = role
   end
 
-  def is_publisher?
-    @role.type == "publisher"
+  Role::TYPES.each do |role_type|
+    define_method("is_#{role_type}?") do
+      @role.type == role_type
+    end
   end
 
 end
